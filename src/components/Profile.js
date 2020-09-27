@@ -6,8 +6,8 @@ export default function Profile({user}) {
       <div className="card">
         <div className="card-body">
           <h2 className="text-center card-title">Usuario</h2>
-          <p class="card-text">Nombre de usuario: {user.username}</p>
-          <p class="card-text">Correo: {user.email}</p>
+          <p className="card-text">Nombre de usuario: {user.username}</p>
+          <p className="card-text">Correo: {user.email}</p>
         </div>
       </div>
     </div>

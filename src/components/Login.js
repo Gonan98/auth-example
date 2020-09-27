@@ -1,27 +1,23 @@
 import React, { useState } from "react";
 
 export default function Login({ setIsLoggedIn }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const signIn = async (e) => {
     e.preventDefault();
 
-    try {
-      const res = await fetch("http://localhost:5000/api/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      const { token } = await res.json();
-      localStorage.setItem("token", token);
-      setIsLoggedIn(true);
-    } catch (err) {
-      console.log(err);
-      setIsLoggedIn(false);
-    }
+    fetch('http://localhost:5000/api/signin', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    }).then(res=>res.json())
+      .then(json=>{
+        localStorage.setItem('token', json.token);
+        setIsLoggedIn(true);
+      }).catch(console.error);
 
     setEmail('');
     setPassword('');

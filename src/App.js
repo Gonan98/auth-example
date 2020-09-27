@@ -21,19 +21,31 @@ function App() {
           'authorization': token
         }
       }).then(res=>res.json())
+        .then(json=>{
+          setUser(json);
+          setIsLoggedIn(true);
+        }).catch(console.error);
+    }
+  },[]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      const token = localStorage.getItem('token');
+      fetch('http://localhost:5000/api/profile',{
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': token
+        }
+      }).then(res=>res.json())
         .then(user=>{
           setUser(user);
-          setIsLoggedIn(true);
         })
         .catch(err=>{
-          console.log(err);
           setIsLoggedIn(false);
           setUser({});
         });
     }
   },[isLoggedIn]);
-
-  console.log('Usuario logueado:',isLoggedIn);
 
   return (
     <Router>
